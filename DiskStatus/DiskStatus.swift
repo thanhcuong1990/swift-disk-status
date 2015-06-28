@@ -15,7 +15,7 @@ class DiskStatus {
         formatter.allowedUnits = NSByteCountFormatterUnits.UseMB
         formatter.countStyle = NSByteCountFormatterCountStyle.Decimal
         formatter.includesUnit = false
-        return formatter.stringFromByteCount(bytes) as NSString
+        return formatter.stringFromByteCount(bytes) as String
     }
     
     
