@@ -11,7 +11,7 @@ class DiskStatus {
     
     //MARK: Formatter MB only
     class func MBFormatter(bytes: Int64) -> String {
-        var formatter = NSByteCountFormatter()
+        let formatter = NSByteCountFormatter()
         formatter.allowedUnits = NSByteCountFormatterUnits.UseMB
         formatter.countStyle = NSByteCountFormatterCountStyle.Decimal
         formatter.includesUnit = false
@@ -42,17 +42,25 @@ class DiskStatus {
     //MARK: Get raw value
     class var totalDiskSpaceInBytes:Int64 {
         get {
-            let systemAttributes = NSFileManager.defaultManager().attributesOfFileSystemForPath(NSHomeDirectory() as String, error: nil)
-            let space = (systemAttributes?[NSFileSystemSize] as? NSNumber)?.longLongValue
-            return space!
+            do {
+                let systemAttributes = try NSFileManager.defaultManager().attributesOfFileSystemForPath(NSHomeDirectory() as String)
+                let space = (systemAttributes[NSFileSystemSize] as? NSNumber)?.longLongValue
+                return space!
+            } catch {
+                return 0
+            }
         }
     }
     
     class var freeDiskSpaceInBytes:Int64 {
         get {
-            let systemAttributes = NSFileManager.defaultManager().attributesOfFileSystemForPath(NSHomeDirectory() as String, error: nil)
-            let freeSpace = (systemAttributes?[NSFileSystemFreeSize] as? NSNumber)?.longLongValue
-            return freeSpace!
+            do {
+                let systemAttributes = try NSFileManager.defaultManager().attributesOfFileSystemForPath(NSHomeDirectory() as String)
+                let freeSpace = (systemAttributes[NSFileSystemFreeSize] as? NSNumber)?.longLongValue
+                return freeSpace!
+            } catch {
+                return 0
+            }
         }
     }
     
