@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         self.updateDiskStatus()
