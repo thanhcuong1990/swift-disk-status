@@ -14,16 +14,10 @@ class ViewController: UIViewController {
     @IBOutlet var usedLabel: UILabel!
     @IBOutlet var freeLabel: UILabel!
     
-    var diskUsedView:UIView?
+    var diskUsedView: UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -34,16 +28,14 @@ class ViewController: UIViewController {
     
     // MARK: update disk space status
     func updateDiskStatus() {
-        usedLabel!.text = String(format:NSLocalizedString("Used %@", comment: ""), DiskStatus.usedDiskSpace)
-        freeLabel!.text = String(format:NSLocalizedString("Free %@", comment: ""), DiskStatus.freeDiskSpace)
+        usedLabel.text = String(format:NSLocalizedString("Used %@", comment: ""), DiskStatus.usedDiskSpace)
+        freeLabel.text = String(format:NSLocalizedString("Free %@", comment: ""), DiskStatus.freeDiskSpace)
         
-        var frame:CGRect = self.totalView!.frame
-        frame.size.width = CGFloat(Double(DiskStatus.usedDiskSpaceInBytes)/Double(DiskStatus.totalDiskSpaceInBytes)) * frame.size.width
+        let width = CGFloat(Double(DiskStatus.usedDiskSpaceInBytes)/Double(DiskStatus.totalDiskSpaceInBytes)) * self.totalView.bounds.width
         
-        diskUsedView = UIView(frame: frame)
+        diskUsedView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: self.totalView.bounds.height))
         diskUsedView!.backgroundColor = self.usedLabel.textColor
-        self.view!.addSubview(diskUsedView!)
+        self.totalView.addSubview(diskUsedView!)
     }
 
 }
-
